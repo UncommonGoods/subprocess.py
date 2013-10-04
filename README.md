@@ -12,3 +12,5 @@ output = subprocess.check_output(\
     ['powershell', r'.\my_script.ps1', 'An argument - that should & be single-quoted'],\
     singlequote=True)
 </pre>
+
+Copied from BitBucket: https://bitbucket.org/pypy/pypy/src/9d88b4875d6e/lib-python/2.7/subprocess.py
