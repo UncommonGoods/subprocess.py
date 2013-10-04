@@ -589,7 +589,7 @@ def list2cmdline(seq, singlequote=False):
         if result:
             result.append(' ')
 
-        needquote = (" " in arg) or ("\t" in arg) or not arg
+        needquote = (" " in arg) or ("\t" in arg) or ("@" in arg) or not arg
         if needquote:
             result.append(quote)
 
