@@ -7,4 +7,8 @@ We were experiencing some problems with the way the library was escaping argumen
 
 To enclose arguments with single quotes rather than double quotes, you can pass the `singlequote` parameter. For example:
 
-`output = subprocess.check_output(['powershell', r'.\my_script.ps1', 'An argument - that should & be single-quoted'], singlequote=True)`
+<pre>
+output = subprocess.check_output(\
+    ['powershell', r'.\my_script.ps1', 'An argument - that should & be single-quoted'],\
+    singlequote=True)
+</pre>
