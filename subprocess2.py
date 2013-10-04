@@ -830,7 +830,7 @@ class Popen(object):
                                 handle, _subprocess.GetCurrentProcess(), 0, 1,
                                 _subprocess.DUPLICATE_SAME_ACCESS)
             # If the initial handle was obtained with CreatePipe, close it.
-            if not isinstance(handle, int):
+            if not isinstance(handle, (int, long)):
                 handle.Close()
             return dupl
 
