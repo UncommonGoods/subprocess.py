@@ -545,7 +545,7 @@ def check_output(*popenargs, **kwargs):
     return output
 
 
-def list2cmdline(seq):
+def list2cmdline(seq, singlequote=False):
     """
     Translate a sequence of arguments into a command line
     string, using the same rules as the MS C runtime:
@@ -577,6 +577,11 @@ def list2cmdline(seq):
     # "Parsing C++ Command-Line Arguments"
     result = []
     needquote = False
+    if singlequote is True:
+        quote = "'"
+    else:
+        quote = '"'
+
     for arg in seq:
         bs_buf = []
 
@@ -592,11 +597,11 @@ def list2cmdline(seq):
             if c == '\\':
                 # Don't know if we need to double yet.
                 bs_buf.append(c)
-            elif c == '"':
+            elif c == quote:
                 # Double backslashes.
                 result.append('\\' * len(bs_buf)*2)
                 bs_buf = []
-                result.append('\\"')
+                result.append('\\'+quote)
             else:
                 # Normal char
                 if bs_buf:
@@ -610,7 +615,7 @@ def list2cmdline(seq):
 
         if needquote:
             result.extend(bs_buf)
-            result.append('"')
+            result.append(quote)
 
     return ''.join(result)
 
@@ -620,7 +625,7 @@ class Popen(object):
                  stdin=None, stdout=None, stderr=None,
                  preexec_fn=None, close_fds=False, shell=False,
                  cwd=None, env=None, universal_newlines=False,
-                 startupinfo=None, creationflags=0):
+                 startupinfo=None, creationflags=0,singlequote=False):
         """Create new Popen instance."""
         _cleanup()
 
@@ -676,7 +681,7 @@ class Popen(object):
                             startupinfo, creationflags, shell,
                             p2cread, p2cwrite,
                             c2pread, c2pwrite,
-                            errread, errwrite)
+                            errread, errwrite, singlequote)
 
         if mswindows:
             if p2cwrite is not None:
@@ -852,7 +857,7 @@ class Popen(object):
                            startupinfo, creationflags, shell,
                            p2cread, p2cwrite,
                            c2pread, c2pwrite,
-                           errread, errwrite):
+                           errread, errwrite, singlequote):
             """Execute program (MS Windows version)"""
 
             if not isinstance(args, types.StringTypes):
@@ -1117,7 +1122,7 @@ class Popen(object):
                            startupinfo, creationflags, shell,
                            p2cread, p2cwrite,
                            c2pread, c2pwrite,
-                           errread, errwrite):
+                           errread, errwrite, singlequote):
             """Execute program (POSIX version)"""
 
             if isinstance(args, types.StringTypes):
