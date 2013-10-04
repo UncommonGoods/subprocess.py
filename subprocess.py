@@ -591,7 +591,7 @@ def list2cmdline(seq, singlequote=False):
 
         needquote = (" " in arg) or ("\t" in arg) or not arg
         if needquote:
-            result.append('"')
+            result.append(quote)
 
         for c in arg:
             if c == '\\':
@@ -861,7 +861,7 @@ class Popen(object):
             """Execute program (MS Windows version)"""
 
             if not isinstance(args, types.StringTypes):
-                args = list2cmdline(args)
+                args = list2cmdline(args, singlequote)
 
             # Process startup details
             if startupinfo is None:
