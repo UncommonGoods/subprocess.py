@@ -14,3 +14,4 @@ output = subprocess.check_output(\
 </pre>
 
 Copied from BitBucket: https://bitbucket.org/pypy/pypy/src/9d88b4875d6e/lib-python/2.7/subprocess.py
+Python 2.4 License: http://www.python.org/download/releases/2.4/license/
