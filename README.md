@@ -1,8 +1,10 @@
 subprocess.py
 =============
 
-Basically, Python's subprocess module was escaping arguments with double quotes, and this wasn't really "doing it" for me.
+UncommonGoods fork of the python "subprocess" library.
 
-Now `Popen` takes a `singlequote` boolean argument that uses single quotes instead of double quotes, if True.
+We were experiencing some problems with the way the library was escaping arguments for Windows CLI, so we modified the lib2cmdline method.
 
-<b>The End.</b>
+To enclose arguments with single quotes rather than double quotes, you can pass the `singlequote` parameter. For example:
+
+`output = subprocess.check_output(['powershell', r'.\my_script.ps1', 'An argument - that should & be single-quoted'], singlequote=True)`
