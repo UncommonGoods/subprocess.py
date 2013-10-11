@@ -589,7 +589,8 @@ def list2cmdline(seq, singlequote=False):
         if result:
             result.append(' ')
 
-        needquote = (" " in arg) or ("\t" in arg) or ("@" in arg) or not arg
+		# if there's a '-' at any position other than the first position in the argument, quote it
+        needquote = (not arg) or (" " in arg) or ("\t" in arg) or (arg[1:].find('-') >= 0)
         if needquote:
             result.append(quote)
 
